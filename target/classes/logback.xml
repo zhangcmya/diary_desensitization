@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="true">
+    <!-- 配置 关键字脱敏处理Converter-->
+    <conversionRule conversionWord="msg"
+                    converterClass="com.gitee.cqdevops.desensitization.pattern.RegularExpressionConverter"/>
+
+    <!-- test格式，使用key脱敏 -->
+<!--    <appender name="FILE" class="ch.qos.logback.core.ConsoleAppender">-->
+<!--        <encoder class="com.gitee.cqdevops.desensitization.encoder.CommonPatternLayoutEncoder">-->
+<!--            <converterCanRun>true</converterCanRun>-->
+<!--            <sensitiveData>idCardNo:cardId;idNo,trueName:realName,phoneNo:phone</sensitiveData>-->
+<!--            <mdcKeys>sessionId</mdcKeys>-->
+<!--            <depth>128</depth>-->
+<!--            <maxLength>2048</maxLength>-->
+<!--            <charset>UTF-8</charset>-->
+<!--        </encoder>-->
+<!--    </appender>-->
+    <!-- test格式，使用正则脱敏 -->
+<!--    <appender name="FILE" class="ch.qos.logback.core.ConsoleAppender">-->
+<!--        <encoder class="com.gitee.cqdevops.desensitization.encoder.CommonPatternLayoutEncoder">-->
+<!--            <converterCanRun>true</converterCanRun>-->
+<!--            <sensitiveData>"phoneNo:1[0-9]{10}"</sensitiveData>-->
+<!--            <mdcKeys>sessionId</mdcKeys>-->
+<!--            <depth>128</depth>-->
+<!--            <maxLength>2048</maxLength>-->
+<!--            <charset>UTF-8</charset>-->
+<!--        </encoder>-->
+<!--    </appender>-->
+
+    <!-- json格式，使用key脱敏 -->
+<!--    <conversionRule conversionWord="msg"  converterClass="com.gitee.cqdevops.desensitization.pattern.KeywordJsonConverter">-->
+<!--    </conversionRule>-->
+<!--    <appender name="FILE" class="ch.qos.logback.core.ConsoleAppender">-->
+<!--        <encoder>-->
+<!--            <pattern>%msg{true,12,2048,"phoneNo:phone"}%n</pattern>-->
+<!--        </encoder>-->
+<!--    </appender>-->
+    <!-- json格式，使用正则脱敏 -->
+    <conversionRule conversionWord="msg"  converterClass="com.gitee.cqdevops.desensitization.pattern.RegularExpressionJsonConverter">
+    </conversionRule>
+    <appender name="FILE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%msg{true,12,2048,"phoneNo:1[0-9]{10}"}%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>
